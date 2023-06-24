@@ -6,10 +6,15 @@ import styles from "./layout.module.css";
 import utilStyles from "../styles/utils.module.css";
 import Footer from "./Footer";
 
+type LayoutProps = {
+  children: React.ReactNode;
+  home?: boolean;
+};
+
 const name = "MikePatch";
 export const siteTitle = "Next.js Sample Website";
 
-export default function Layout({ children, home }) {
+export default function Layout({ children, home }: LayoutProps) {
   return (
     <div className={styles.container}>
       <Head>

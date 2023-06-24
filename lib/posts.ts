@@ -4,6 +4,11 @@ import path from "path";
 import { remark } from "remark";
 import html from "remark-html";
 
+type PostMeta = {
+  date: string;
+  title: string;
+};
+
 const postsDirectory = path.join(process.cwd(), "posts");
 
 export function getSortedPostsData() {
@@ -18,7 +23,7 @@ export function getSortedPostsData() {
 
     return {
       id,
-      ...matterResult.data,
+      ...(matterResult.data as PostMeta),
     };
   });
 
@@ -40,7 +45,7 @@ export function getAllPostIds() {
   });
 }
 
-export async function getPostData(id) {
+export async function getPostData(id: string) {
   const fullPath = path.join(postsDirectory, `${id}.md`);
   const fileContents = fs.readFileSync(fullPath, "utf8");
 
@@ -54,6 +59,6 @@ export async function getPostData(id) {
   return {
     id,
     contentHtml,
-    ...matterResult.data,
+    ...(matterResult.data as PostMeta),
   };
 }
